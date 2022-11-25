@@ -1,10 +1,8 @@
-require('dotenv').config()
-const express = require('express')
-const cors = require('cors')
-const morgan = require('morgan')
+import * as dotenv from 'dotenv'
+import express from 'express'
+import * as Log from './shared/customLogs'
+dotenv.config()
 
-const server = express()
+const app = express()
 
-server.use(express.json())
-server.use(cors())
-server.use(morgan('dev'))
+app.listen(process.env.PORT, () => Log.Danger('server '))
