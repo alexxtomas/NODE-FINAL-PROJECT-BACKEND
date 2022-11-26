@@ -5,7 +5,7 @@ interface IRole {
   users: Types.ObjectId
 }
 
-module.exports = (db: Mongoose): Model<IRole> => {
+export default (db: Mongoose): Model<IRole> => {
   const roleSchema = new db.Schema<IRole>(
     {
       name: { type: String, required: true }

@@ -1,5 +1,5 @@
 import { Model, Mongoose, Types } from 'mongoose'
-
+import uniqueValidator from 'mongoose-unique-validator'
 interface IUser {
   username: String
   email: String
@@ -8,7 +8,7 @@ interface IUser {
   comments: Types.ObjectId[]
 }
 
-module.exports = (db: Mongoose): Model<IUser> => {
+export default (db: Mongoose): Model<IUser> => {
   const userSchema = new db.Schema<IUser>(
     {
       username: { type: String, required: true, unique: true },
@@ -27,6 +27,8 @@ module.exports = (db: Mongoose): Model<IUser> => {
       versionKey: false
     }
   )
+
+  userSchema.plugin(uniqueValidator, { type: 'mongoose-unique-validator' })
 
   return db.model<IUser>('User', userSchema)
 }
