@@ -1,5 +1,4 @@
 import { Request, Response } from 'express'
-import { validationResult } from 'express-validator'
 import { Status } from '../../../shared/server/status.js'
 import { Users } from '../../orm/index.js'
 
@@ -15,10 +14,6 @@ const getAll = async (req: Request, res: Response) => {
 }
 
 const createOne = async (req: Request, res: Response) => {
-  const errors = validationResult(req)
-  if (!errors.isEmpty())
-    return res.status(Status.BAD_REQUEST).json({ errors: errors.array() })
-
   const { username, role, email, password } = req.body
 
   const newUser = {
