@@ -1,7 +1,7 @@
 {
   "name": "node-final-project-backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "Awesome Api",
   "type": "module",
   "main": "index.js",
   "scripts": {
@@ -16,7 +16,7 @@
     "prettier:watch": "onchange src/**/*.ts -- prettier --write {{changed}}"
   },
   "keywords": [],
-  "author": "",
+  "author": "Alex Tomas atomasllimos@gmail.com",
   "license": "ISC",
   "devDependencies": {
     "@types/cors": "^2.8.12",

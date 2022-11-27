@@ -4,6 +4,7 @@ import { Status } from '../../../shared/server/status.js'
 import { Users } from '../../orm/index.js'
 
 const getAll = async (req: Request, res: Response) => {
+  console.log('a')
   try {
     const users = await Users.getAll()
 

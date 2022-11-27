@@ -16,7 +16,8 @@ export const Mouse: CreateEntity<IMouse> = (db: Mongoose): Model<IMouse> => {
       rgb: { type: Boolean, required: true },
       weight: { type: String, required: true },
       wireless: { type: Boolean, required: true },
-      sensor: { type: String, required: true }
+      sensor: { type: String, required: true },
+      commentaries: [{ ref: 'Comment', type: db.Schema.Types.ObjectId }]
     },
 
     {

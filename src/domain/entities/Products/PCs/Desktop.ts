@@ -16,10 +16,12 @@ export const Desktop: CreateEntity<IDesktop> = (
       likes: { type: Number, required: true },
       createdAt: { type: Number, required: true },
       powerSupply: { type: String, required: true },
-      motherboard: { type: String, required: true },
+      motherboard: { type: String },
       graphicCard: { type: String, required: true },
       processor: { type: String, required: true },
-      ram: { type: String, required: true }
+      ram: { type: String, required: true },
+      commentaries: [{ ref: 'Comment', type: db.Schema.Types.ObjectId }],
+      storage: { type: String, required: true }
     },
 
     {

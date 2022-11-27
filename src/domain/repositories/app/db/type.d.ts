@@ -19,7 +19,7 @@ export interface IDB {
     Mouse: Model<IMouse>
   }
   Users: {
-    Comments: Model<IComment>
+    Comment: Model<IComment>
     Role: Model<IRole>
     User: Model<IUser>
   }

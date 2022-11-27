@@ -1,4 +1,4 @@
-import { Model, Mongoose, Types } from 'mongoose'
+import { Model, Mongoose } from 'mongoose'
 import { CreateEntity, ICategory } from '../types.js'
 
 export const Cateogry: CreateEntity<ICategory> = (
@@ -7,7 +7,13 @@ export const Cateogry: CreateEntity<ICategory> = (
   const categoryShema = new db.Schema<ICategory>(
     {
       name: { type: String, required: true },
-      products: [{ ref: 'Usere', type: Types.ObjectId }]
+      products: [
+        {
+          ref: 'Keyboard' || 'Mouse',
+          required: true,
+          type: db.Schema.Types.ObjectId
+        }
+      ]
     },
     {
       timestamps: true,

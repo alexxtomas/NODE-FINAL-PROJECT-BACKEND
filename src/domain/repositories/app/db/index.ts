@@ -19,7 +19,7 @@ try {
       Mouse: Entities.Peripherals.Mouse(mongoose)
     },
     Users: {
-      Comments: Entities.Users.Comment(mongoose),
+      Comment: Entities.Users.Comment(mongoose),
       Role: Entities.Users.Role(mongoose),
       User: Entities.Users.User(mongoose)
     },

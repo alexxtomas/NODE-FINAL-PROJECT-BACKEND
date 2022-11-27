@@ -1,6 +1,6 @@
 import { Express } from 'express-serve-static-core'
-import userRouter from '../controller/users.js'
+import appController from '../controller/index.js'
 
 export const routes = (server: Express) => {
-  server.use('/api', userRouter)
+  server.use('/api', appController)
 }

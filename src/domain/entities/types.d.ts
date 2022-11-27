@@ -11,24 +11,28 @@ export interface IProduct {
   links: String[]
   likes: Number
   createdAt: Number
+  commentaries: [Types.ObjectId]
 }
 
 // PCs
 export interface IDesktop extends IProduct {
   powerSupply: String
-  motherboard: String
+  motherboard?: String
   graphicCard: String
   processor: String
   ram: String
+  storage: String
 }
 
 export interface ILaptop extends IProduct {
   weight: String
   displaySize: String
   displayResoultion: String
+  displayRefreshRate: String
   graphicCard: String
   processor: String
   ram: String
+  storage: String
 }
 
 // Peripherals
@@ -50,8 +54,9 @@ export interface IMouse extends IProduct {
 // USERS
 export interface IComment {
   username: Types.ObjectId
-  comment: string
+  content: string
   date: string
+  product: Types.ObjectId
 }
 
 export interface IRole {

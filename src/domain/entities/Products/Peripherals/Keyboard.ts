@@ -19,7 +19,8 @@ export const Keyboard: CreateEntity<IKeyboard> = (
       rgb: { type: String, required: true },
       switches: { type: String, required: true },
       wireless: { type: String, required: true },
-      size: { type: String, required: true }
+      size: { type: String, required: true },
+      commentaries: [{ ref: 'Comment', type: db.Schema.Types.ObjectId }]
     },
     {
       timestamps: true,

@@ -1,16 +1,16 @@
-import { check } from 'express-validator'
+import { body } from 'express-validator'
 // import { Users } from '../../orm'
 
 const getAll = () => {}
 
 const createOne = () => {
-  check('username')
+  body('username')
     .isString()
     .custom((value) => {})
-  check('email').normalizeEmail().isEmail()
-  check('role')
+  body('email').normalizeEmail().isEmail()
+  body('role')
     .optional()
     .custom((value) => value === 'admin' || 'moderator' || 'user')
-  check('password').isStrongPassword()
+  body('password').isStrongPassword()
 }
 export default { getAll, createOne }

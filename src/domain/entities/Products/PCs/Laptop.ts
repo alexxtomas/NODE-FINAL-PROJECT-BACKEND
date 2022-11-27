@@ -16,9 +16,12 @@ export const Laptop: CreateEntity<ILaptop> = (db: Mongoose): Model<ILaptop> => {
       weight: { type: String, required: true },
       displaySize: { type: String, required: true },
       displayResoultion: { type: String, required: true },
+      displayRefreshRate: { type: String, required: true },
       graphicCard: { type: String, required: true },
       processor: { type: String, required: true },
-      ram: { type: String, required: true }
+      ram: { type: String, required: true },
+      commentaries: [{ ref: 'Comment', type: db.Schema.Types.ObjectId }],
+      storage: { type: String, required: true }
     },
 
     {

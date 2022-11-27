@@ -17,23 +17,11 @@ export const getAllUsernames = async () => {
   }
 }
 
-export const createOne = async ({
-  username,
-  comments,
-  email,
-  isActivate,
-  role
-}: IUser) => {
+export const createOne = async (newUser: IUser) => {
   try {
-    const user = await new appDB.Users.User({
-      username,
-      comments,
-      email,
-      isActivate,
-      role
-    })
+    const user = await new appDB.Users.User(newUser)
     return await user.save()
   } catch (e) {
-    throw new Error('Cannor Create User')
+    console.error(e)
   }
 }
