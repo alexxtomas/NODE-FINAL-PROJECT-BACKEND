@@ -1,20 +1,15 @@
 import * as dotenv from 'dotenv'
-import express, {
-  ErrorRequestHandler,
-  NextFunction,
-  Request,
-  Response
-} from 'express'
-import 'express-async-errors'
-import * as Log from './shared/console/logs'
+import { routes } from './routes/index.js'
+import app from './servers/app.js'
+import * as Console from './shared/console/logs.js'
+
 dotenv.config()
 
-const app = express()
+routes(app)
 
-app.use(express.json())
+const { PORT } = process.env
 
-// app.use(errHandler)
+if (!PORT) throw new Error('Port not provided')
+app.listen(process.env.PORT, () => Console.Info(`Server  on port ${PORT}`))
 
-app.listen(process.env.PORT, () =>
-  Log.Danger(`server  on port ${process.env.PORT}`)
-)
+app.on('error', (err: any) => Console.Danger(err))

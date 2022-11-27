@@ -1,7 +1,0 @@
-server:
-  app:
-    port: 3000
-    db:
-  auth:
-    port: 3001
-    db:

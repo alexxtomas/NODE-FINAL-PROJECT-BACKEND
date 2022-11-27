@@ -1,0 +1,37 @@
+import { Request, Response } from 'express'
+import { validationResult } from 'express-validator'
+import { Status } from '../../../shared/server/status.js'
+import { Users } from '../../orm/index.js'
+
+const getAll = async (req: Request, res: Response) => {
+  try {
+    const users = await Users.getAll()
+
+    res.status(users.length > 0 ? Status.OK : Status.NO_CONTENT).json(users)
+  } catch (e) {
+    throw new Error('Cannot service all users')
+  }
+}
+
+const createOne = async (req: Request, res: Response) => {
+  const errors = validationResult(req)
+  if (!errors.isEmpty())
+    return res.status(Status.BAD_REQUEST).json({ errors: errors.array() })
+
+  const { username, role, email, password } = req.body
+
+  const newUser = {
+    username,
+    email,
+    password,
+    role: role || 'user',
+    isActivate: false,
+    comments: []
+  }
+
+  const user = await Users.createOne(newUser)
+
+  res.status(Status.CREATED).json(user)
+}
+
+export default { getAll, createOne }

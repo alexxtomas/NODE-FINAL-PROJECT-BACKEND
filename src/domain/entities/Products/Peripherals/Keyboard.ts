@@ -1,16 +1,11 @@
 import { Model, Mongoose } from 'mongoose'
 import mongooseUniqueValidator from 'mongoose-unique-validator'
-import { IProduct } from '../../../shared/types'
+import { CreateEntity, IKeyboard } from '../../types.js'
 
-interface IMouse extends IProduct {
-  rgb: Boolean
-  weight: String
-  wireless: Boolean
-  sensor: String
-}
-
-export default (db: Mongoose): Model<IMouse> => {
-  const mouseSchema = new db.Schema<IMouse>(
+export const Keyboard: CreateEntity<IKeyboard> = (
+  db: Mongoose
+): Model<IKeyboard> => {
+  const keyboardSchema = new db.Schema<IKeyboard>(
     {
       name: { type: String, required: true, unique: true },
       image: { type: String, required: true, unique: true },
@@ -20,21 +15,21 @@ export default (db: Mongoose): Model<IMouse> => {
       links: [{ type: String, required: true, unique: true }],
       likes: { type: Number, required: true },
       createdAt: { type: Number, required: true },
-      rgb: { type: Boolean, required: true },
-      weight: { type: String, required: true },
-      wireless: { type: Boolean, required: true },
-      sensor: { type: String, required: true }
+      layout: { type: String, required: true },
+      rgb: { type: String, required: true },
+      switches: { type: String, required: true },
+      wireless: { type: String, required: true },
+      size: { type: String, required: true }
     },
-
     {
       timestamps: true,
       versionKey: false
     }
   )
 
-  mouseSchema.plugin(mongooseUniqueValidator, {
+  keyboardSchema.plugin(mongooseUniqueValidator, {
     type: 'mongoose-unique-validator'
   })
 
-  return db.model<IMouse>('Mouse', mouseSchema)
+  return db.model<IKeyboard>('Keyboard', keyboardSchema)
 }

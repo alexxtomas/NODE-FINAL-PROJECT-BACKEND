@@ -1,17 +1,9 @@
 import { Model, Mongoose } from 'mongoose'
 import mongooseUniqueValidator from 'mongoose-unique-validator'
-import { IProduct } from '../../../shared/types'
+import { CreateEntity, IMouse } from '../../types.js'
 
-interface IDesktop extends IProduct {
-  powerSupply: String
-  motherboard: String
-  graphicCard: String
-  processor: String
-  ram: String
-}
-
-export default (db: Mongoose): Model<IDesktop> => {
-  const desktopSchema = new db.Schema<IDesktop>(
+export const Mouse: CreateEntity<IMouse> = (db: Mongoose): Model<IMouse> => {
+  const mouseSchema = new db.Schema<IMouse>(
     {
       name: { type: String, required: true, unique: true },
       image: { type: String, required: true, unique: true },
@@ -21,11 +13,10 @@ export default (db: Mongoose): Model<IDesktop> => {
       links: [{ type: String, required: true, unique: true }],
       likes: { type: Number, required: true },
       createdAt: { type: Number, required: true },
-      powerSupply: { type: String, required: true },
-      motherboard: { type: String, required: true },
-      graphicCard: { type: String, required: true },
-      processor: { type: String, required: true },
-      ram: { type: String, required: true }
+      rgb: { type: Boolean, required: true },
+      weight: { type: String, required: true },
+      wireless: { type: Boolean, required: true },
+      sensor: { type: String, required: true }
     },
 
     {
@@ -34,9 +25,9 @@ export default (db: Mongoose): Model<IDesktop> => {
     }
   )
 
-  desktopSchema.plugin(mongooseUniqueValidator, {
+  mouseSchema.plugin(mongooseUniqueValidator, {
     type: 'mongoose-unique-validator'
   })
 
-  return db.model<IDesktop>('Desktop', desktopSchema)
+  return db.model<IMouse>('Mouse', mouseSchema)
 }

@@ -1,17 +1,9 @@
 import { Model, Mongoose } from 'mongoose'
 import mongooseUniqueValidator from 'mongoose-unique-validator'
-import { IProduct } from '../../../shared/types'
+import { CreateEntity, ILaptop } from '../../types.js'
 
-interface IKeyboard extends IProduct {
-  layout: String
-  rgb: Boolean
-  switches: String
-  wireless: Boolean
-  size: String
-}
-
-export default (db: Mongoose): Model<IKeyboard> => {
-  const keyboardSchema = new db.Schema<IKeyboard>(
+export const Laptop: CreateEntity<ILaptop> = (db: Mongoose): Model<ILaptop> => {
+  const laptopSchema = new db.Schema<ILaptop>(
     {
       name: { type: String, required: true, unique: true },
       image: { type: String, required: true, unique: true },
@@ -21,21 +13,23 @@ export default (db: Mongoose): Model<IKeyboard> => {
       links: [{ type: String, required: true, unique: true }],
       likes: { type: Number, required: true },
       createdAt: { type: Number, required: true },
-      layout: { type: String, required: true },
-      rgb: { type: String, required: true },
-      switches: { type: String, required: true },
-      wireless: { type: String, required: true },
-      size: { type: String, required: true }
+      weight: { type: String, required: true },
+      displaySize: { type: String, required: true },
+      displayResoultion: { type: String, required: true },
+      graphicCard: { type: String, required: true },
+      processor: { type: String, required: true },
+      ram: { type: String, required: true }
     },
+
     {
       timestamps: true,
       versionKey: false
     }
   )
 
-  keyboardSchema.plugin(mongooseUniqueValidator, {
+  laptopSchema.plugin(mongooseUniqueValidator, {
     type: 'mongoose-unique-validator'
   })
 
-  return db.model<IKeyboard>('Keyboard', keyboardSchema)
+  return db.model<ILaptop>('Laptop', laptopSchema)
 }

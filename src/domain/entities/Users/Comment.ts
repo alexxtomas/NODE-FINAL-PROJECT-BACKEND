@@ -1,12 +1,9 @@
-import { Model, Mongoose, Types } from 'mongoose'
+import { Model, Mongoose } from 'mongoose'
+import { CreateEntity, IComment } from '../types.js'
 
-interface IComment {
-  username: Types.ObjectId
-  comment: string
-  date: string
-}
-
-export default (db: Mongoose): Model<IComment> => {
+export const Comment: CreateEntity<IComment> = (
+  db: Mongoose
+): Model<IComment> => {
   const commentSchema = new db.Schema<IComment>({
     username: { ref: 'User', type: db.Schema.Types.ObjectId, required: true },
     comment: { type: String, required: true },

@@ -3,12 +3,12 @@ type ServerResponse = (
   errorCode: string,
   message: string,
   data: string
-) => Promise<{
+) => {
   status: string
   info: Record<string, string>
-}>
+}
 
-const ResponseService: ServerResponse = async (
+export const ResponseService: ServerResponse = (
   status,
   errorCode,
   message,
@@ -23,5 +23,3 @@ const ResponseService: ServerResponse = async (
     }
   }
 }
-
-module.exports = ResponseService

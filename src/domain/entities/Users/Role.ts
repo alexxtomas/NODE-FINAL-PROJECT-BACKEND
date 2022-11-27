@@ -1,11 +1,6 @@
-import { model, Model, Mongoose, Types } from 'mongoose'
-
-interface IRole {
-  name: String
-  users: Types.ObjectId
-}
-
-export default (db: Mongoose): Model<IRole> => {
+import { model, Model, Mongoose } from 'mongoose'
+import { CreateEntity, IRole } from '../types.js'
+export const Role: CreateEntity<IRole> = (db: Mongoose): Model<IRole> => {
   const roleSchema = new db.Schema<IRole>(
     {
       name: { type: String, required: true }

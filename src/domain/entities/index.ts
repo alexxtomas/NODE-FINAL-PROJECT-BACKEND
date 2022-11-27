@@ -1,5 +1,9 @@
-import * as PCs from './PCs'
-import * as Peripherals from './Peripherals'
-import * as Users from './Users'
+import { Products } from './Products/index.js'
+import { Users } from './Users/index.js'
 
-export { PCs, Peripherals, Users }
+export const Entities = {
+  PCs: Products.PCs,
+  Peripherals: Products.Peripherals,
+  Categories: Products.Cateogry,
+  Users
+}
