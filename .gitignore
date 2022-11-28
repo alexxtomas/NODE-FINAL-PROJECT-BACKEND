@@ -1,2 +1,4 @@
 node_modules
 .env
+google-auth.json
+refresh-token-firebase-auth.json

@@ -11,19 +11,19 @@ try {
   await connection(dbConnectionString)
   db = {
     PCs: {
-      Desktop: Entities.PCs.Desktop(mongoose),
-      Laptop: Entities.PCs.Laptop(mongoose)
+      Desktop: Entities.App.PCs.Desktop(mongoose),
+      Laptop: Entities.App.PCs.Laptop(mongoose)
     },
     Peripherals: {
-      Keyboard: Entities.Peripherals.Keyboard(mongoose),
-      Mouse: Entities.Peripherals.Mouse(mongoose)
+      Keyboard: Entities.App.Peripherals.Keyboard(mongoose),
+      Mouse: Entities.App.Peripherals.Mouse(mongoose)
     },
     Users: {
-      Comment: Entities.Users.Comment(mongoose),
-      Role: Entities.Users.Role(mongoose),
-      User: Entities.Users.User(mongoose)
+      Comment: Entities.App.Users.Comment(mongoose),
+      Role: Entities.App.Users.Role(mongoose),
+      User: Entities.App.Users.User(mongoose)
     },
-    Categories: Entities.Categories(mongoose)
+    Categories: Entities.App.Categories(mongoose)
   }
   Console.Info('Connected to db')
 

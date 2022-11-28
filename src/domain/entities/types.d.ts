@@ -3,52 +3,52 @@ import { Model, Mongoose, Types } from 'mongoose'
 export type CreateEntity<Type> = (db: Mongoose) => Model<Type>
 
 export interface IProduct {
-  name: String
-  image: String
-  color: String
-  normalPrice: String
+  name: string
+  image: string
+  color: string
+  normalPrice: string
   category: Types.ObjectId
-  links: String[]
-  likes: Number
-  createdAt: Number
+  links: string[]
+  likes: number
+  createdAt: number
   commentaries: [Types.ObjectId]
 }
 
 // PCs
 export interface IDesktop extends IProduct {
-  powerSupply: String
-  motherboard?: String
-  graphicCard: String
-  processor: String
-  ram: String
-  storage: String
+  powerSupply: string
+  motherboard?: string
+  graphicCard: string
+  processor: string
+  ram: string
+  storage: string
 }
 
 export interface ILaptop extends IProduct {
-  weight: String
-  displaySize: String
-  displayResoultion: String
-  displayRefreshRate: String
-  graphicCard: String
-  processor: String
-  ram: String
-  storage: String
+  weight: string
+  displaySize: string
+  displayResoultion: string
+  displayRefreshRate: string
+  graphicCard: string
+  processor: string
+  ram: string
+  storage: string
 }
 
 // Peripherals
 export interface IKeyboard extends IProduct {
-  layout: String
-  rgb: Boolean
-  switches: String
-  wireless: Boolean
-  size: String
+  layout: string
+  rgb: boolean
+  switches: string
+  wireless: boolean
+  size: string
 }
 
 export interface IMouse extends IProduct {
-  rgb: Boolean
-  weight: String
-  wireless: Boolean
-  sensor: String
+  rgb: boolean
+  weight: string
+  wireless: boolean
+  sensor: string
 }
 
 // USERS
@@ -60,20 +60,24 @@ export interface IComment {
 }
 
 export interface IRole {
-  name: String
+  name: string
   users: Types.ObjectId
 }
 
 export interface IUser {
-  username: String
-  email: String
-  role: String
-  isActivate: Boolean
+  username: string
+  email: string
+  role: string
+  isActivate: boolean
   comments: Types.ObjectId[]
-  password: String
+  password: string
 }
 
 export interface ICategory {
-  name: String
+  name: string
   products: Types.ObjectId[]
+}
+
+export interface IRefreshToken {
+  refreshToken: string
 }

@@ -3,7 +3,6 @@ import express from 'express'
 import morgan from 'morgan'
 import { routes } from '../routes/index.js'
 import { initialize } from '../utils/initialize/index.js'
-import { errorHandler } from './middlewares/errorHandler.js'
 
 const app = express()
 
@@ -14,8 +13,6 @@ app.use(morgan('dev'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-routes(app)
-
-app.use(errorHandler)
+routes({ serverName: 'app', server: app })
 
 export default app

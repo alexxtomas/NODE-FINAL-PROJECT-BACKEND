@@ -1,9 +1,15 @@
-import { Products } from './Products/index.js'
-import { Users } from './Users/index.js'
+import { Products } from './app/Products/index.js'
+import { Users } from './app/Users/index.js'
+import { RefreshToken } from './auth/RefreshToken.js'
 
 export const Entities = {
-  PCs: Products.PCs,
-  Peripherals: Products.Peripherals,
-  Categories: Products.Cateogry,
-  Users
+  App: {
+    PCs: Products.PCs,
+    Peripherals: Products.Peripherals,
+    Categories: Products.Cateogry,
+    Users
+  },
+  Auth: {
+    RefreshToken
+  }
 }

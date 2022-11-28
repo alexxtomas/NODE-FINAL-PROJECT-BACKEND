@@ -10,8 +10,8 @@ if (!environment) throw new Error('No environment provided')
 
 const dbConnectionString =
   environment === 'development'
-    ? process.env.MONGODB_URI
-    : process.env.MONGODB_URI_TESTING
+    ? process.env.APP_MONGODB_URI
+    : process.env.APP_MONGODB_URI_TESTING
 
 if (!dbConnectionString) throw new Error('No db connection provided')
 
