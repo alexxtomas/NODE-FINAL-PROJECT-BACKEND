@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-// import jwt from 'jsonwebtoken'
+import jwt from 'jsonwebtoken'
 import Password from '../../../../shared/password.js'
 import { SendMail } from '../../../../shared/sendMail.js'
 import { Server } from '../../../../shared/server/indext.js'
@@ -32,36 +32,81 @@ const createOne = async (req: Request, res: Response) => {
     isActivate: false,
     comments: []
   }
+  try {
+    const createdUser = await Users.createOne(newUser)
 
-  const user = await Users.createOne(newUser)
+    const { NODE_ENV, APP_PORT, EMAIL_SECRET } = process.env
 
-  const { NODE_ENV } = process.env
-  const { APP_PORT } = process.env
+    if (!NODE_ENV) throw new Error('No environment provided')
+    if (!APP_PORT) throw new Error('No port provided')
+    if (!EMAIL_SECRET) throw new Error('No token provided for email route')
 
-  if (!NODE_ENV) throw new Error('No environment provided')
-  if (!APP_PORT) throw new Error('No port provided')
+    // HERE
+    jwt.sign(
+      { userId: createdUser?.id },
+      EMAIL_SECRET,
+      {
+        expiresIn: '1d'
+      },
+      (err, emailToken) => {
+        if (err ?? !emailToken) throw new Error('Error creating email token')
+        const url =
+          NODE_ENV === 'production'
+            ? `https://mydomain.com/api/confirmation/${emailToken}`
+            : `http://localhost:${APP_PORT}/api/confirmation/${emailToken}`
+        const htmlMessage = `
+  <h1>Pleae To Confirm Your Email <a href="${url}" target="_blank">click here</a></h1>
+`
+        SendMail(
+          email,
+          'Confirmation Email',
+          htmlMessage,
+          { html: true },
+          (err, data) => {
+            if (err) console.error(err)
+            else console.log('Email sent successfully')
+          }
+        )
+      }
+    )
 
-  const href =
-    NODE_ENV === 'production'
-      ? 'https://mydomain.com/email-verification'
-      : `http://localhost:${APP_PORT}/email-verification`
-  const htmlMessage = `
-    <h1>To verify your accout please  <a href="${href}" target="_blank">click here</a></h1>
-    
-  `
-
-  SendMail(
-    email,
-    'Email Verification',
-    htmlMessage,
-    { html: true },
-    (err, data) => {
-      if (err) console.error(err)
-      else console.log('Email sent successfully')
-    }
-  )
-
-  Server.Response(res, { data: user, code: Server.Status.CREATED })
+    Server.Response(res, { data: createdUser, code: Server.Status.CREATED })
+  } catch (error) {
+    console.error(error)
+    Server.Response(res, {
+      error: true,
+      code: Server.Status.INTERNAL_SERVER_ERROR,
+      message: 'Something went wrong'
+    })
+  }
 }
 
-export default { getAll, createOne }
+export const confirmEmail = async (req: Request, res: Response) => {
+  try {
+    const { EMAIL_SECRET } = process.env
+    if (!EMAIL_SECRET) throw new Error('No email secret key provided')
+    const user: any = jwt.verify(req.params.token, EMAIL_SECRET)
+    if (!user)
+      Server.Response(res, {
+        error: true,
+        code: Server.Status.UNAUTHORIZED,
+        message: 'Unauthorized for this action'
+      })
+    const verifiedUser = await Users.updateUser(user.userId, {
+      isActivate: true
+    })
+
+    Server.Response(res, {
+      code: Server.Status.OK,
+      data: verifiedUser
+    })
+  } catch (error) {
+    Server.Response(res, {
+      code: Server.Status.NOT_ACEPTABLE,
+      message: error instanceof Error ? error.message : 'Something went wrong ',
+      error: true
+    })
+  }
+}
+
+export default { getAll, createOne, confirmEmail }

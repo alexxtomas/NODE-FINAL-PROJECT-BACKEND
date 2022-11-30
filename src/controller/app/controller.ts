@@ -18,6 +18,6 @@ router.post(
   Users.createOne
 )
 
-// router.get('/email-verification', )
+router.get('/confirmation/:token', Users.confirmEmail)
 
 export default router

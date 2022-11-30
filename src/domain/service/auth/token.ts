@@ -22,9 +22,6 @@ export const token = async (req: Request, res: Response) => {
     (db) => db.refreshToken === token
   )
 
-  console.log(allrefreshTokens)
-  console.log(foundRefreshToken)
-
   if (!foundRefreshToken)
     return Server.Response(res, {
       code: Server.Status.UNAUTHORIZED,

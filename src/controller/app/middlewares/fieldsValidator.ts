@@ -1,9 +1,8 @@
 import { NextFunction, Request, Response } from 'express'
 import validator from 'validator'
+import { Users } from '../../../domain/orm/app/index.js'
 import { Server } from '../../../shared/server/indext.js'
-// import { IGetUserAuthInfoRequest } from '../types.js'
-
-export const createOneUser = (
+export const createOneUser = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -11,6 +10,20 @@ export const createOneUser = (
   const { username, email, password } = req.body
 
   try {
+    const existentUserWithThisEmail = await Users.getByEmail(email)
+    const existentUserWithThisUsername = await Users.getByUsername(username)
+    if (existentUserWithThisEmail)
+      return Server.Response(res, {
+        code: Server.Status.BAD_REQUEST,
+        error: true,
+        message: 'Existent User with this email'
+      })
+    if (existentUserWithThisUsername)
+      return Server.Response(res, {
+        code: Server.Status.BAD_REQUEST,
+        error: true,
+        message: 'Existent User with this username'
+      })
     if (!validator.isLength(username, { min: 3, max: 20 }))
       return Server.Response(res, {
         code: Server.Status.BAD_REQUEST,

@@ -10,7 +10,7 @@ export const genereteAccessToken = (user: IUser) => {
   const { ACCES_TOKEN_SECRET } = process.env
   if (!ACCES_TOKEN_SECRET) throw new Error('No access token provided')
   return jwt.sign({ user }, ACCES_TOKEN_SECRET, {
-    expiresIn: '30s'
+    expiresIn: '10m'
   })
 }
 

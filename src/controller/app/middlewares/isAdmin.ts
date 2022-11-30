@@ -11,8 +11,6 @@ export const isAdmin = (req: Request, res: Response, next: NextFunction) => {
       message: 'No authorization provided'
     })
 
-  console.log(user)
-
   if (user.role !== 'admin')
     return Server.Response(res, {
       code: Server.Status.UNAUTHORIZED,

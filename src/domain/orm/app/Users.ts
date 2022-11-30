@@ -25,3 +25,25 @@ export const getByEmail = async (email: string) => {
     console.error(e)
   }
 }
+
+export const getByUsername = async (username: string) => {
+  try {
+    return await appDB.Users.User.findOne({ username })
+  } catch (e) {
+    console.error(e)
+  }
+}
+
+type ToUpdateParam<T> = { [K in keyof T]?: T[K] }
+// type UpdateUser = (id: string, toUpdate: ToUpdateParam<IUser>): Error |
+export const updateUser = async (
+  id: string,
+  toUpdate: ToUpdateParam<IUser>
+) => {
+  try {
+    return await appDB.Users.User.findByIdAndUpdate(id, toUpdate, {
+      new: true,
+      lean: true
+    })
+  } catch (e) {}
+}

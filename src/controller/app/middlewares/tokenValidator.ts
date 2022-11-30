@@ -15,7 +15,6 @@ export const tokenValidator = async (
 
   const { ACCES_TOKEN_SECRET } = process.env
   if (!ACCES_TOKEN_SECRET) throw new Error('No Secret Acces provided')
-  console.log(token)
   if (!token)
     return Server.Response(res, {
       error: true,
