@@ -1,4 +1,6 @@
 import { get } from './ApiInfo.js'
+import { PCs } from './Products/PCs.js'
+import { Peripherals } from './Products/Peripherals.js'
 import {
   createOne,
   getAll,
@@ -13,6 +15,11 @@ export const Users = {
   getByEmail,
   updateUser,
   getByUsername
+}
+
+export const Products = {
+  Peripherals,
+  PCs
 }
 
 export const ApiInfo = {

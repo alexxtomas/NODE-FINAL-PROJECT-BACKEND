@@ -1,9 +1,9 @@
 import { Request, Response } from 'express'
 import jwt from 'jsonwebtoken'
-import Password from '../../../../shared/password.js'
-import { SendMail } from '../../../../shared/sendMail.js'
-import { Server } from '../../../../shared/server/indext.js'
-import { Users } from '../../../orm/app/index.js'
+import Password from '../../../shared/password.js'
+import { SendMail } from '../../../shared/sendMail.js'
+import { Server } from '../../../shared/server/indext.js'
+import { Users } from '../../orm/app/index.js'
 
 const getAll = async (req: Request, res: Response) => {
   try {
